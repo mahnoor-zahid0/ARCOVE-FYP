@@ -1,0 +1,31 @@
+buildscript {
+    ext.kotlin_version = '2.0.20' // Update to the latest stable version
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.2' // Update Android Gradle Plugin if necessary
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // Make sure this uses the updated version
+        classpath 'com.google.gms:google-services:4.4.2' // Firebase/Google services plugin
+    }
+}
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build" // Keeps the build files outside the Android folder
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

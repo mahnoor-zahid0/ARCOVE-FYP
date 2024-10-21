@@ -1,0 +1,67 @@
+plugins {
+
+    id 'com.android.application'
+    id 'kotlin-android'
+    // FlutterFire configuration for Firebase
+    id 'com.google.gms.google-services'
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id 'dev.flutter.flutter-gradle-plugin'
+}
+
+dependencies {
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:33.4.0')
+
+
+    // TODO: Add the dependencies for Firebase products you want to use
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics'
+
+
+    // Add the dependencies for any other desired Firebase products
+    // https://firebase.google.com/docs/android/setup#available-libraries
+}
+android {
+    namespace = "com.example.sample"
+    // Set the compile SDK version from Flutter's configuration
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    // Java compatibility options
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // Kotlin options
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    defaultConfig {
+        // Application identifier
+        applicationId "com.example.sample"
+        // Minimum SDK version, set to 23 due to Firebase Auth requirements
+        minSdkVersion 23
+        // Target SDK version
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // For now, using debug keys to ensure release builds work with `flutter run --release`
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    // Flutter project source directory
+    source = "../../"
+}
+
+// Apply Google Services plugin for Firebase configuration
+apply plugin: 'com.google.gms.google-services'
